@@ -1,0 +1,90 @@
+Requirements: 
+  Stage 1:
+    Have an single EC2 instance host a static coming soon page. It should be reachable via public internet.
+    - components:
+        - VPC.
+        - Subnet.
+        - IGW.
+        - EIP.
+        - SG.
+        - CW.
+        - CWL.
+  Stage 2:
+    Have the instance write user-input data and store it in a persistent manner on the local disk. Users should be able to read the data in a random fashion.
+    - components:
+        - VPC
+        - Subnet
+        - IGW
+        - EIP
+        - SG
+        - CW
+        - CWL
+  Stage 3:
+    Make the instance highly available, with persistent storage across total instance failure. Reads should be eventually consistent.
+    - components:
+        - VPC
+        - Subnet
+        - IGW
+        - NatGW
+        - SG
+        - ASG
+        - ALB
+        - EFS
+        - CW
+        - CWL
+  Stage 4:
+    Switch DB backend from instance to standard RDS for authentication. 
+    - components:
+        - VPC
+        - Subnet
+        - IGW
+        - NatGW
+        - SG
+        - ASG
+        - ALB
+        - RDS
+        - EFS
+        - CW
+        - CWL
+  Stage 5:
+    Switch RDS to Aurora.
+    - components:
+        - VPC
+        - Subnet
+        - IGW
+        - NatGW
+        - SG
+        - ASG
+        - ALB
+        - Aurora
+        - EFS
+        - CW
+        - CWL
+  Stage 6:
+    Switch Aurora to Aurora Serverless.
+    - components:
+        - VPC
+        - Subnet
+        - IGW
+        - NatGW
+        - SG
+        - ASG
+        - ALB
+        - Aurora
+        - EFS
+        - CW
+        - CWL
+  Stage 7:
+    Switch remaining EC2 functionality to lambda. Any static backend should be from s3.
+    - components:
+        - VPC
+        - Subnet
+        - IGW
+        - SG
+        - Aurora
+        - CW
+        - CWL
+        - Lambda
+        - S3
+        - APIGW
+        - 
