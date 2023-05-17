@@ -2,7 +2,7 @@
 
 Feel free to take a look and take a template or two!
 
-Some of these templates go beyond free tier. User beware.
+Some of these templates go beyond free tier. Since these are just play environments, no_log isn't enabled. User beware.
 
 ## EC2 TO SERVERLESS
 ### Stage 1:
