@@ -34,6 +34,7 @@ To Run:
 - terraform init
 - terraform apply
 - ansible-playbook -i inventory.yaml webserver_playbook.yaml -v
+
 Resources created:
 - VPC (Vpc) (1)
 - Subnet (Subnet1) (1)
