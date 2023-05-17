@@ -30,6 +30,10 @@ Changes:
 1. Switch from CloudFormation to Terraform to deploy resources and Ansible to config the instance.
 2. Change coming soon page to a page to demonstrate user input then recalling that input. Users can register @register.php then submit fortunes @submit_fortunes.php. Finally, they can retrieve a random fortune, along with the submitting user's username @random_fortune.php.
 
+To Run:
+- terraform init
+- terraform apply
+- ansible-playbook -i inventory.yaml webserver_playbook.yaml -v
 Resources created:
 - VPC (Vpc) (1)
 - Subnet (Subnet1) (1)
