@@ -20,7 +20,7 @@ Requirements:
         - CW
         - CWL
   Stage 3:
-    Make the instance highly available, with persistent storage across total instance failure. Reads should be eventually consistent.
+    Make the instance and DB highly available, with persistent storage across total instance failure.
     - components:
         - VPC
         - Subnet
@@ -33,48 +33,6 @@ Requirements:
         - CW
         - CWL
   Stage 4:
-    Switch DB backend from instance to standard RDS for authentication. 
-    - components:
-        - VPC
-        - Subnet
-        - IGW
-        - NatGW
-        - SG
-        - ASG
-        - ALB
-        - RDS
-        - EFS
-        - CW
-        - CWL
-  Stage 5:
-    Switch RDS to Aurora.
-    - components:
-        - VPC
-        - Subnet
-        - IGW
-        - NatGW
-        - SG
-        - ASG
-        - ALB
-        - Aurora
-        - EFS
-        - CW
-        - CWL
-  Stage 6:
-    Switch Aurora to Aurora Serverless.
-    - components:
-        - VPC
-        - Subnet
-        - IGW
-        - NatGW
-        - SG
-        - ASG
-        - ALB
-        - Aurora
-        - EFS
-        - CW
-        - CWL
-  Stage 7:
     Switch remaining EC2 functionality to lambda. Any static backend should be from s3.
     - components:
         - VPC
