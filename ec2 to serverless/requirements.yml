@@ -32,6 +32,7 @@ Requirements:
         - EFS
         - CW
         - CWL
+        - RDS (Aurora MySQL)
   Stage 4:
     Switch remaining EC2 functionality to lambda. Any static backend should be from s3.
     - components:
