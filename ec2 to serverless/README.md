@@ -6,17 +6,17 @@ Some of these templates go beyond free tier. Since these are just play environme
 
 ### Stage 1:
 Resources created:
-- VPC (Vpc) (1)
-- Subnet (Subnet1) (1)
-- InternetGateway (IG) (1)
-- VPCGatewayAttachment (IGAttach) (1)
-- RouteTable (RouteTable) (1)
-- Route (RouteOut) (1)
-- SubnetRouteTableAssociation (RouteTableAssociation1) (1)
-- SecurityGroup (SecurityGroup) (1)
-- Role (EC2Role) (1)
-- InstanceProfile (EC2InstanceProfile) (1)
-- Instance (EC2Webserver) (1)
+- VPC (1)
+- Subnet (1)
+- InternetGateway (1)
+- VPCGatewayAttachment (1)
+- RouteTable (1)
+- Route (1)
+- SubnetRouteTableAssociation (1)
+- SecurityGroup (1)
+- Role (1)
+- InstanceProfile (1)
+- Instance (1)
 
 Requires:
 - CloudWatch Agent config in Parameter Store as "AmazonCloudWatch-linux"
@@ -30,22 +30,22 @@ Changes:
 2. Change coming soon page to a page to demonstrate user input then recalling that input. Users can register @register.php then submit fortunes @submit_fortunes.php. Finally, they can retrieve a random fortune, along with the submitting user's username @random_fortune.php.
 
 To Run:
-- terraform init
-- terraform apply
-- ansible-playbook -i inventory.yaml webserver_playbook.yaml -v
+1. terraform init
+2. terraform apply
+3. ansible-playbook -i inventory.yaml webserver_playbook.yaml -v
 
 Resources created:
-- VPC (Vpc) (1)
-- Subnet (Subnet1) (1)
-- InternetGateway (IG) (1)
-- VPCGatewayAttachment (IGAttach) (1)
-- RouteTable (RouteTable) (1)
-- Route (RouteOut) (1)
-- SubnetRouteTableAssociation (RouteTableAssociation1) (1)
-- SecurityGroup (SecurityGroup) (1)
-- Role (EC2Role) (1)
-- InstanceProfile (EC2InstanceProfile) (1)
-- Instance (EC2Webserver) (1)
+- VPC (1)
+- Subnet (1)
+- InternetGateway (1)
+- VPCGatewayAttachment (1)
+- RouteTable (1)
+- Route (1)
+- SubnetRouteTableAssociation (1)
+- SecurityGroup (1)
+- Role (1)
+- InstanceProfile (1)
+- Instance (1)
 
 Requires:
 - 2 Passwords in Secrets Manager:
@@ -56,3 +56,46 @@ Requires:
 - pre-generated ssh key for the Ansible connection. I use a static testing key for simplicity.
 - s3 bucket at template-specified location containing your webserver files.
 
+### Stage 3:
+Changes: 
+1. Switch DB from local mariadb to Aurora Serverless v2 with 2 reader instances for 1 instance per AZ.
+2. Create launch template from instance, stick behind LB and ASG.
+
+To Run:
+1. Create a basic ec2 instance. See stage2's ec2-instance for which options I used. Add the IP to inventory.yaml
+2. ansible-playbook -i inventory.yaml webserver_playbook.yaml -v
+3. Supply AMI to terraform's launch template
+4. terraform init
+5. terraform apply
+
+Resources created:
+ansible-playbook -i inventory.yaml webserver_playbook.yaml -v
+- aws_iam_role (2)
+- aws_iam_instance_profile (1)
+- aws_vpc (1)
+- aws_internet_gateway (1)
+- aws_subnet (3)
+- aws_route_table (1)
+- aws_route_table_association (3)
+- aws_security_group (2)
+- aws_vpc_security_group_egress_rule (2)
+- aws_vpc_security_group_ingress_rule (4)
+- aws_db_subnet_group (1)
+- aws_rds_cluster (1)
+- aws_rds_cluster_instance (3)
+- aws_lambda_function (1)
+- aws_lambda_invocation (1)
+- aws_lb (1)
+- aws_lb_listener (1)
+- aws_launch_template (1)
+- aws_lb_target_group (1)
+- aws_autoscaling_group (1)
+
+Requires:
+- 2 Passwords in Secrets Manager:
+  - ${aws_secret_location}/db_root_pass
+  - ${aws_secret_location}/db_user_pass
+- CloudWatch Agent config in Parameter Store as "AmazonCloudWatch-linux"
+- awscli credentials to complete the required creates/modifications
+- s3 bucket at template-specified location containing your webserver files.
+- Appropriate lambda code and packages zipped in terraform folder(requires pymysql)
