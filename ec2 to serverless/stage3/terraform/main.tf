@@ -127,7 +127,7 @@ resource "aws_subnet" "app_subnet_3" {
   }
 }
 
-# Route Table
+# Route Table. Simple route only to lb. db and instances will share subnets.
 
 resource "aws_route_table" "app_route_table_1" {
   vpc_id = aws_vpc.app_vpc.id
@@ -156,7 +156,7 @@ resource "aws_route_table_association" "app_route_table_association_3" {
   route_table_id = aws_route_table.app_route_table_1.id
 }
 
-# Security Groups
+# Security Groups. Basically trust itself and the lb or app sg
 resource "aws_security_group" "lb_sg_1" {
     name        = "lb_sg_1"
     description = "security group applied to the load balancer"
@@ -208,7 +208,7 @@ resource "aws_vpc_security_group_ingress_rule" "app_sg_1_ingressrule_2" {
   ip_protocol       = -1
 }
 
-# create Aurora
+# create Aurora and 3 instances, Aurora Serverless v2
 resource "aws_db_subnet_group" "app_db_subnet_group_1" {
   name       = "app_db_subnet_group_1"
   subnet_ids = [aws_subnet.app_subnet_1.id, aws_subnet.app_subnet_2.id, aws_subnet.app_subnet_3.id]
