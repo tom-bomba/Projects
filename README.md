@@ -5,54 +5,15 @@ Feel free to take a look and take a template or two!
 Some of these templates go beyond free tier. Since these are just play environments, no_log isn't enabled. User beware.
 
 ## EC2 TO SERVERLESS
-### Stage 1:
-Resources created:
-- VPC (Vpc) (1)
-- Subnet (Subnet1) (1)
-- InternetGateway (IG) (1)
-- VPCGatewayAttachment (IGAttach) (1)
-- RouteTable (RouteTable) (1)
-- Route (RouteOut) (1)
-- SubnetRouteTableAssociation (RouteTableAssociation1) (1)
-- SecurityGroup (SecurityGroup) (1)
-- Role (EC2Role) (1)
-- InstanceProfile (EC2InstanceProfile) (1)
-- Instance (EC2Webserver) (1)
+Create a simple webserver on an EC2 instance. It should be able to store/retrieve user-provided info as well as authenticate users. Make it highly available and decouple DB from the frontend. Finally, refactor to allow full serverless implementation: static on s3, backend handled by lambda + API GW.
+#### Stage 1:
+Simple webserver that displays a single "Coming Soon..." page. Single instance in single AZ.
+#### Stage 2:
+Webserver allows for user input and deploy with Terraform + Ansible to decouple infrastructure and config.
+#### Stage 3:
+Create std. image for the webserver. Deploy it using LB + ASG spread across 3 subnets in 3 AZs. Switch DB to Aurora Serverless v2 (3 instances across 3 AZs) to decouple the frontend and the db.
+#### Stage 4:
+Coming soon...
 
-Requires:
-- CloudWatch Agent config in Parameter Store as "AmazonCloudWatch-linux"
-- awscli credentials to complete the required creates/modifications
-- pre-generated ssh key for the Ansible connection. I use a static testing key for simplicity.
-- s3 bucket at template-specified location containing your webserver files.
+## Containers
 
-### Stage 2:
-Changes: 
-1. Switch from CloudFormation to Terraform to deploy resources and Ansible to config the instance.
-2. Change coming soon page to a page to demonstrate user input then recalling that input. Users can register @register.php then submit fortunes @submit_fortunes.php. Finally, they can retrieve a random fortune, along with the submitting user's username @random_fortune.php.
-
-To Run:
-- terraform init
-- terraform apply
-- ansible-playbook -i inventory.yaml webserver_playbook.yaml -v
-
-Resources created:
-- VPC (Vpc) (1)
-- Subnet (Subnet1) (1)
-- InternetGateway (IG) (1)
-- VPCGatewayAttachment (IGAttach) (1)
-- RouteTable (RouteTable) (1)
-- Route (RouteOut) (1)
-- SubnetRouteTableAssociation (RouteTableAssociation1) (1)
-- SecurityGroup (SecurityGroup) (1)
-- Role (EC2Role) (1)
-- InstanceProfile (EC2InstanceProfile) (1)
-- Instance (EC2Webserver) (1)
-
-Requires:
-- 2 Passwords in Secrets Manager:
-  - ${aws_secret_location}/db_root_pass
-  - ${aws_secret_location}/db_user_pass
-- CloudWatch Agent config in Parameter Store as "AmazonCloudWatch-linux"
-- awscli credentials to complete the required creates/modifications
-- pre-generated ssh key for the Ansible connection. I use a static testing key for simplicity.
-- s3 bucket at template-specified location containing your webserver files.
