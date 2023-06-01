@@ -140,5 +140,18 @@ Changes:
 - aws_api_gateway_deployment (1)
 - null_resource (1)
 
+Requires:
+- 2 Passwords in Secrets Manager:
+  - ${aws_secret_location}/db_root_pass
+  - ${aws_secret_location}/db_user_pass
+- 1 client_secret in Secrets Manager:
+  - dev/cognito/fortunes/client_secret
+- CloudWatch Agent config in Parameter Store as "AmazonCloudWatch-linux"
+- awscli credentials to complete the required creates/modifications
+- This template uses files within other dirs, expecting a relative path. Maintain a simliar dir structure.
+- Appropriate lambda code and packages zipped in lambda folder folder (requires pymysql)
+- pymysql as layer.zip in lambda dir.
+- Existing Cognito user pool
+- if you want to change things around, a sed replace on "fortunes" and "client_id" and "user_pool" should do the trick. repackage the lambdas after the replace.
 
 
