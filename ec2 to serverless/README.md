@@ -69,7 +69,7 @@ To Run:
 5. terraform apply
 
 Resources created:
-ansible-playbook -i inventory.yaml webserver_playbook.yaml -v
+
 - aws_iam_role (2)
 - aws_iam_instance_profile (1)
 - aws_vpc (1)
