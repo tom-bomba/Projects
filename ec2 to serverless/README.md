@@ -99,3 +99,30 @@ Requires:
 - awscli credentials to complete the required creates/modifications
 - s3 bucket at template-specified location containing your webserver files.
 - Appropriate lambda code and packages zipped in terraform folder(requires pymysql)
+
+### Stage 3:
+Changes: 
+1. Switch auth to Cognito from local db.
+2. Drop EC2 altogether and replace with S3 + API GW + Lambda.
+
+
+- aws_iam_role (2)
+- aws_iam_policy (1)
+- aws_iam_role_policy_attachment (1)
+- aws_s3_bucket_policy (1)
+- aws_s3_bucket (1)
+- aws_s3_bucket_public_access_block (1)
+- aws_s3_bucket_website_configuration (1)
+- aws_s3_bucket_versioning (1)
+- aws_vpc (1)
+- aws_internet_gateway (1)
+- aws_subnet (3)
+- aws_route_table (1)
+- aws_route_table_association (3)
+- aws_security_group (1)
+- aws_vpc_security_group_egress_rule (1)
+- aws_vpc_security_group_ingress_rule (1)
+- aws_db_subnet_group (1)
+- aws_rds_cluster (1)
+- aws_rds_cluster_instance (3)
+
