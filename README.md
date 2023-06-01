@@ -13,7 +13,7 @@ Webserver allows for user input and deploy with Terraform + Ansible to decouple 
 #### Stage 3:
 Create std. image for the webserver. Deploy it using LB + ASG spread across 3 subnets in 3 AZs. Switch DB to Aurora Serverless v2 (3 instances across 3 AZs) to decouple the frontend and the db.
 #### Stage 4:
-Coming soon...
+Switch from ec2 to S3 Static Website Hosting + API GW + Lambda. DB remains the same.
 
 ## Containers
-
+Coming soon...
