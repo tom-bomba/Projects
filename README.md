@@ -17,3 +17,6 @@ Switch from ec2 to S3 Static Website Hosting + API GW + Lambda. DB remains the s
 
 ## Containers
 Coming soon...
+
+## CI/CD
+Coming after containers...
