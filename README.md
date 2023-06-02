@@ -2,7 +2,7 @@
 
 Feel free to take a look and take a template or two!
 
-Some of these templates go beyond free tier. Since these are just play environments, no_log isn't enabled. User beware.
+Some of these templates go beyond free tier. These are intended for testing/play, not for prod. User beware.
 
 ## EC2 TO SERVERLESS
 Create a simple webserver on an EC2 instance. It should be able to store/retrieve user-provided info as well as authenticate users. Make it highly available and decouple DB from the frontend. Finally, refactor to allow full serverless implementation: static on s3, backend handled by lambda + API GW.
